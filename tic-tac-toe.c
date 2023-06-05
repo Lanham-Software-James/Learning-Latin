@@ -1,7 +1,15 @@
+/*
+**  This was a simple program to get my basic understanding of C back.
+**  I haven't used C since undergrad in 2020, so it was a nice refresher!
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
+/*
+ *  Fills the board with temp symbols.
+ *  This could really be moved back to main. 
+*/
 void generateBoard(int rows, int columns, char board[rows][columns])
 {
   for (int i = 0; i < rows; i++)
@@ -13,6 +21,9 @@ void generateBoard(int rows, int columns, char board[rows][columns])
   }
 }
 
+/*
+ *  This function pulls the user name from the terminal.
+ */
 void readUserName( char* user_name, int user_number ) 
 {
   int scanf_success = -1;
@@ -33,6 +44,9 @@ void readUserName( char* user_name, int user_number )
   }
 } 
 
+/*
+ *  This function prints the current tic-tac-toe board
+ */
 void printBoard(int rows, int columns, char board[rows][columns])
 {
   printf("\n   1   2   3 \n");
@@ -62,6 +76,10 @@ void printBoard(int rows, int columns, char board[rows][columns])
   }
 }
 
+/*
+ *  This is the function the runs when the user takes a turn.
+ *  It pulls in a users coordinates to place their move on the board. 
+ */
 void playTurn( int rows, int columns, char board[rows][columns], int user1_turn, char* username )
 {
   int x_coord = -1;
@@ -123,6 +141,10 @@ void playTurn( int rows, int columns, char board[rows][columns], int user1_turn,
   }
 }
 
+/*
+ *  This function checks if the game is over.
+ *  It can determin if a user wins or if there is a tie.
+ */
 void checkWin( int rows, int columns, char board[rows][columns], int* user1_turn, char* username )
 {
   int game_won = 0;
@@ -171,6 +193,9 @@ void checkWin( int rows, int columns, char board[rows][columns], int* user1_turn
   }
 }
 
+/*
+ *  Big boy main()
+ */
 int main()
 {
   const int ROWS = 3;
