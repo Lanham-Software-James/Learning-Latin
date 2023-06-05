@@ -37,7 +37,7 @@ void printBoard( char *board, int rows, int columns )
   {
     for (int j = 0; j < columns; j++)
     {
-      printf("%c", *(board+i+j));
+      printf(" %c ", *(board+i+j));
     }
     printf("\n");
   }
