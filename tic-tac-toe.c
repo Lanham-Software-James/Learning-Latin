@@ -50,7 +50,7 @@ void printBoard(int rows, int columns, char board[rows][columns])
         printf(" %c |", board[i][j]);
       }
     }
-    
+
     if(i == (rows - 1))
     {
       printf("\n\n");
@@ -108,6 +108,7 @@ void playTurn( int rows, int columns, char board[rows][columns], int user1_turn,
     if (board[y_coord - 1][x_coord - 1] != '-')
     {
       printf("This space has been played. Please try again.\n");
+      scanf_success = -1;
     }
     else if(user1_turn == 1)
     {
@@ -124,6 +125,16 @@ void playTurn( int rows, int columns, char board[rows][columns], int user1_turn,
 
 void checkWin( int rows, int columns, char board[rows][columns], int* user1_turn, char* username )
 {
+  if (*user1_turn == 1)
+  {
+    *user1_turn = 0;
+  }
+  else
+  {
+    *user1_turn = 1;
+  }
+  
+  
   // *user1_turn = -1;
 }
 
@@ -159,23 +170,17 @@ int main()
 
   while(user1_turn >= 0)
   {
-
     printBoard(ROWS, COLUMNS, board);
 
     if(user1_turn == 1) {
       playTurn( ROWS, COLUMNS, board, user1_turn, user_name_1);
       checkWin( ROWS, COLUMNS, board, &user1_turn, user_name_1);
-      user1_turn = 0;
     }
     else {
       playTurn( ROWS, COLUMNS, board, user1_turn, user_name_2);
       checkWin( ROWS, COLUMNS, board, &user1_turn, user_name_2); 
-      user1_turn = 1;
     }
   }
-  
-
-  
 
   free(user_name_1);
   free(user_name_2);
