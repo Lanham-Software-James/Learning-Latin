@@ -49,9 +49,8 @@ void printBoard(int rows, int columns, char board[rows][columns])
       {
         printf(" %c |", board[i][j]);
       }
-      
-      
     }
+    
     if(i == (rows - 1))
     {
       printf("\n\n");
