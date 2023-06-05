@@ -125,6 +125,9 @@ void playTurn( int rows, int columns, char board[rows][columns], int user1_turn,
 
 void checkWin( int rows, int columns, char board[rows][columns], int* user1_turn, char* username )
 {
+  int game_won = 0;
+  int game_tied = 1;
+
   if (*user1_turn == 1)
   {
     *user1_turn = 0;
@@ -134,8 +137,38 @@ void checkWin( int rows, int columns, char board[rows][columns], int* user1_turn
     *user1_turn = 1;
   }
   
-  
-  // *user1_turn = -1;
+  for (int i = 0; i < rows; i++)
+  {
+    for(int j = 0; j < columns; j++)
+    {
+      if((j == 0) && (board[i][j] == board[i][j+1]) && (board[i][j+1] == board[i][j+2]) && (board[i][j] != '-')){
+        game_won = 1;
+      }
+      else if((i == 0) && (board[i][j] == board[i+1][j]) && (board[i+1][j] == board[i+2][j]) && (board[i][j] != '-')){
+        game_won = 1;
+      }
+      else if((i == 0) && (j == 0) && (board[i][j] == board[i+1][j+1]) && (board[i+1][j+1] == board[i+2][j+2]) && (board[i][j] != '-')){
+        game_won = 1;
+      }
+      else if((i == 2) && (j == 0) && (board[i][j] == board[i-1][j+1]) && (board[i-1][j+1] == board[i-2][j+2]) && (board[i][j] != '-')){
+        game_won = 1;
+      }
+      else if (board[i][j] == '-')
+      {
+        game_tied = 0;
+      }
+    }
+  }
+
+  if(game_won == 1){
+    *user1_turn = -1;
+    printf("\nCongrats, %s! You have won!!\n", username);
+  }
+  else if (game_tied == 1)
+  {
+    *user1_turn = -1;
+    printf("\nGame tied! Good Job!\n");
+  }
 }
 
 int main()
@@ -181,6 +214,8 @@ int main()
       checkWin( ROWS, COLUMNS, board, &user1_turn, user_name_2); 
     }
   }
+
+  printBoard(ROWS, COLUMNS, board);
 
   free(user_name_1);
   free(user_name_2);
