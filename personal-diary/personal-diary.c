@@ -63,11 +63,5 @@ int main()
           break;
       }
     }
-    
-    
-
-    //main_control = 0;
   }
-  
-
 }
