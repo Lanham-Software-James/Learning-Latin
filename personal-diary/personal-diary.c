@@ -1,5 +1,12 @@
+/*
+**  This is another program to strengthen my understanding of C.
+*/
 #include<stdio.h>
 
+/*
+ *  Function to display the main menu to the user. 
+ *  Put this in a function just to clean up main. Doesn't really need to be seperate.
+ */
 void printMainMenu() 
 {
   printf("\n*************************************\n");
@@ -15,9 +22,13 @@ void printMainMenu()
   printf("ENTER YOUR CHOICE: ");
 }
 
+/*
+ *  Big boy main.
+ */
 int main()
 {
   int main_control = 1;
+  //Main control loop
   while (main_control == 1)
   {
     int scanf_success = -1;
