@@ -34,24 +34,28 @@ void addRecord()
   time_t rawtime;
   struct tm * timeinfo;
   int scanf_success = -1;
-  char c;
-  int n;
   char *firstname = malloc( sizeof(char) * 50);
   char *lastname = malloc( sizeof(char) * 50);
   char *password = malloc( sizeof(char) * 50);
   char *diary_entry = malloc( sizeof(char) * 1000);
-
+  FILE *entry;
+  char tmp[5] = "";
+  char entry_name[128] = "entries/";
+  
+  //Print header
   printf("\n*************************************\n");
   printf("*          ADD RECORD MENU          *\n");
   printf("*************************************\n\n");
 
+  //Getting current time.
   time ( &rawtime );
   timeinfo = localtime ( &rawtime );
-  printf("Current Date/Time is: %d %d %d %d:%d:%d\n", timeinfo->tm_mday,
+
+  //Printing current time.
+  printf("Current Date/Time is: %d/%d/%d %d:%d:%d\n", timeinfo->tm_mday,
             timeinfo->tm_mon + 1, timeinfo->tm_year + 1900,
             timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 
-  
   //Loop controling first name input
   printf("Enter your first name: ");
   while (scanf(" %49[^\n]", firstname) < 1)
@@ -79,6 +83,50 @@ void addRecord()
   { 
     printf("\nThere was a problem. Please enter diary entry: ");
   }
+
+  //Building file name
+  sprintf(tmp, "%d", timeinfo->tm_mday);        //Day
+  strcat(entry_name, tmp);
+  strcat(entry_name, "-");
+
+  sprintf(tmp, "%d", timeinfo->tm_mon + 1);     //Month
+  strcat(entry_name, tmp);
+  strcat(entry_name, "-");
+
+  sprintf(tmp, "%d", timeinfo->tm_year + 1900); //Year
+  strcat(entry_name, tmp);
+  strcat(entry_name, "_");
+
+  sprintf(tmp, "%d", timeinfo->tm_hour);        //Hour
+  strcat(entry_name, tmp);
+  strcat(entry_name, "-");
+
+  sprintf(tmp, "%d", timeinfo->tm_min);        //Minute
+  strcat(entry_name, tmp);
+  strcat(entry_name, "-");
+
+  sprintf(tmp, "%d", timeinfo->tm_sec);        //Second
+  strcat(entry_name, tmp);
+  strcat(entry_name, "_");
+
+  strcat(entry_name, firstname);              //Firstname
+  strcat(entry_name, "-");
+
+  strcat(entry_name, lastname);               //Lastname
+
+  entry = fopen(entry_name, "w");
+  if (entry == NULL)
+  {
+    printf("Error opening file!\n");
+    exit(1);
+  }
+
+  fprintf(entry, "Entry date:  %d/%d/%d %d:%d:%d\nAuthor First Name: %s\nAuthor Last Name: %s\nPassword: %s\nEntry: %s\n", 
+            timeinfo->tm_mday, timeinfo->tm_mon + 1, timeinfo->tm_year + 1900,
+            timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec,
+            firstname, lastname, password, diary_entry);
+  
+  fclose(entry);
 
   free(firstname);
   free(lastname);
