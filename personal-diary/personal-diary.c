@@ -135,6 +135,15 @@ void addRecord()
 }
 
 /*
+ * Function for viewing an existing record.
+ * WIP
+ */
+void viewRecord()
+{
+
+}
+
+/*
  *  Big boy main.
  */
 int main()
@@ -160,7 +169,7 @@ int main()
           break;
         
         case 2: //View Record
-          /* code */
+          viewRecord();
           break;
 
         case 3: //Edit Record
