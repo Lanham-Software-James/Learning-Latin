@@ -27,7 +27,6 @@ void printMainMenu()
 
 /*
  * Function for adding a record.
- * WIP
  */
 void addRecord()
 {
@@ -140,7 +139,10 @@ void addRecord()
  */
 void viewRecord()
 {
-
+  //Print menu
+  printf("\n*************************************\n");
+  printf("*          VIEW RECORD MENU         *\n");
+  printf("*************************************\n\n");
 }
 
 /*
