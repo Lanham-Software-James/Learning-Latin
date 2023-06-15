@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 /*
  *  Function to display the main menu to the user. 
@@ -39,7 +42,8 @@ void addRecord()
   char *diary_entry = malloc( sizeof(char) * 1000);
   FILE *entry;
   char tmp[5] = "";
-  char entry_name[128] = "entries/";
+  struct stat st = {0};
+  char entry_name[130] = "./entries/";
   
   //Print header
   printf("\n*************************************\n");
@@ -94,6 +98,16 @@ void addRecord()
 
   sprintf(tmp, "%d", timeinfo->tm_year + 1900); //Year
   strcat(entry_name, tmp);
+
+  if (stat(entry_name, &st) == -1) {    //Check if date directory exists
+      mkdir(entry_name, 0700);          //If not create directory
+  }
+  
+  strcat(entry_name, "/");
+  strcat(entry_name, firstname);              //Firstname
+  strcat(entry_name, "-");
+
+  strcat(entry_name, lastname);               //Lastname
   strcat(entry_name, "_");
 
   sprintf(tmp, "%d", timeinfo->tm_hour);        //Hour
@@ -106,12 +120,6 @@ void addRecord()
 
   sprintf(tmp, "%d", timeinfo->tm_sec);        //Second
   strcat(entry_name, tmp);
-  strcat(entry_name, "_");
-
-  strcat(entry_name, firstname);              //Firstname
-  strcat(entry_name, "-");
-
-  strcat(entry_name, lastname);               //Lastname
 
   entry = fopen(entry_name, "w");
   if (entry == NULL)
